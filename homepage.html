@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studify - Homepage</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="home-page">
+    <header>
+        <a class="web" href="homepage.html">Studify</a>
+
+        <nav class="navigation-bar">
+            <a href="pomodoro.html">Pomodoro Timer</a>
+            <a href="todo.html">To-do List</a>
+            <a href="schedule.html">Class Schedule</a>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <h1 class="profile">Studify</h1>
+        <h3 class="quote">study using your own way</h3>
+    
+        <div id="r1" class="first">
+            <div class="user">
+                <label for="profile-pic-upload" class="profile-pic-container">
+                    <img src="https://i.pinimg.com/736x/45/f7/04/45f7043e73ccfcad3f056680fd929aa7.jpg" alt="profile-picture" id="user-image">
+                    <div class="upload-overlay"><i class="fas fa-camera"></i></div>
+                </label>
+                <input type="file" id="profile-pic-upload" accept="image/*" style="display: none;">
+                
+                <div class="user-info">
+                    <input type="text" id="user-name" class="user-input" value="Eunice Kate Besas" placeholder="Full Name">
+                    <input type="text" id="user-block" class="user-input" value="BSCS 1-1" placeholder="Course & Block">
+                    <input type="text" id="user-student-number" class="user-input" value="2025-15012" placeholder="Student ID">
+                    <textarea id="user-quote" class="user-input" placeholder="Your favorite quote">"Live as if you were to die tomorrow. Learn as if you were to live forever," by Mahatma Gandhi</textarea>
+                </div>
+            </div>
+
+            <div class="pomodoro">
+                <div class="pomodoro-wrapper"> 
+                    <div class="container">
+                        <div class="circular-timer">
+                            <span class="time">25:00</span>
+                        </div>
+                        <div class="buttons">
+                            <button class="start"><b>Start</b></button>
+                            <button class="stop"><b>Stop</b></button>
+                            <button class="reset"><b>Reset</b></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="todo1">
+                <h2 class="note">Keep up the good work!</h2>
+                <p>Completed tasks:</p>
+                <h1 class="progress" id="dashboard-count">0/0</h1>
+                
+                <div class="bar">
+                    <div class="progressb">
+                        <div class="progress__fill" id="dashboard-bar"></div>
+                        <span class="progress__text" id="dashboard-percentage">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="todo2">
+                <div class="todo-list-inner-container">
+                    <div id="mini-task-list">
+                        </div>
+                    <p id="empty-msg" style="text-align: center; color: white; display:none;">No tasks yet!</p>
+
+                    <div class="task-view-more">
+                        <a href="todo.html" style="color: white; font-size: 0.8rem;">Click to view more...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="title">
+        <h1>Class Schedule</h1>
+
+        <div id="sched">    
+            <div class="day">
+                <h2>Sunday</h2>
+                <h2>Monday</h2>
+                <h2>Tuesday</h2>
+                <h2>Wednesday</h2>
+                <h2>Thursday</h2>
+                <h2>Friday</h2>
+                <h2>Saturday</h2>
+            </div>
+            
+            <div class="week">
+                <div class="day-col" data-day="Sunday"></div>
+                <div class="day-col" data-day="Monday"></div>
+                <div class="day-col" data-day="Tuesday"></div>
+                <div class="day-col" data-day="Wednesday"></div>
+                <div class="day-col" data-day="Thursday"></div>
+                <div class="day-col" data-day="Friday"></div>
+                <div class="day-col" data-day="Saturday"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="abtcon">
+            <h1>About Studify</h1>
+            <p class="info">Studify is a student app designed to make school life easier. It brings together your student information, a Pomodoro timer, to-do tasks, and a simple schedule planner in one place. Our goal is to help students stay organized, manage time well, and keep track of what matters.</p>
+            <h2>Take charge. Stay inspired.</h2>
+            <h2>Do things your way—with Studify.</h2>
+        </div>
+    </section>
+
+    <footer>
+        <section class="social">
+            <div class="social-icon">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </section>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

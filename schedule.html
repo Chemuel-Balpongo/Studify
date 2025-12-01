@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedule</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="schedule-page"> 
+    <div class="header">
+        <a href="homepage.html" class="website-name">Studify</a>
+        <nav class="navigation-bar">
+            <a href="pomodoro.html">Pomodoro Timer</a>
+            <a href="todo.html">To-do List</a>
+            <a href="schedule.html">Class Schedule</a>
+        </nav>
+    </div>
+
+    <div class="container">
+        <h1>Weekly Class Schedule</h1>
+        <p class="subtitle">Easily add and manage your weekly classes</p>
+
+        <div class="form-container">
+            <div class="form">
+                <select id="day">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+
+                <input type="time" id="startTime" required>
+                <input type="time" id="endTime" required>
+                <input type="text" id="course" placeholder="Course Name" autocomplete="off" required>
+
+                <select id="modality">
+                    <option value="In-person">In-person</option>
+                    <option value="Online">Online</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
+
+                <button id="add">Add Class</button>
+                <button id="clear">Clear All</button>
+            </div>
+        </div>
+
+        <div class="schedule">
+            <div class="day" data-day="Monday"><h2>Monday</h2><ul></ul></div>
+            <div class="day" data-day="Tuesday"><h2>Tuesday</h2><ul></ul></div>
+            <div class="day" data-day="Wednesday"><h2>Wednesday</h2><ul></ul></div>
+            <div class="day" data-day="Thursday"><h2>Thursday</h2><ul></ul></div>
+            <div class="day" data-day="Friday"><h2>Friday</h2><ul></ul></div>
+            <div class="day" data-day="Saturday"><h2>Saturday</h2><ul></ul></div>
+            <div class="day" data-day="Sunday"><h2>Sunday</h2><ul></ul></div>
+        </div>
+    </div>
+
+    <footer>
+        <section class="social">
+            <div class="social-icon">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </section>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

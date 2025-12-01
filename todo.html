@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-do List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="todo-page" style="flex-direction: column; align-items: center; justify-content: start;"> 
+    <div class="header">
+        <a href="homepage.html" class="website-name">Studify</a>
+        <nav class="navigation-bar">
+            <a href="pomodoro.html">Pomodoro Timer</a>
+            <a href="todo.html">To-do List</a>
+            <a href="schedule.html">Class Schedule</a>
+        </nav>
+    </div>
+    
+    <div class="container">
+        <h1>To-do List</h1>
+        <div class="left-column">
+            <div class="status-container">
+                <div class="details">
+                    <h3>Keep up the<br>good work!</h3>
+                    <p class="completed-label">Completed Tasks:</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+                <div class="status-number">
+                    <p class="numbers">0/0</p>
+                </div>
+            </div>
+
+            <form class="task-input-area">
+                <input type="text" class="task-input" placeholder="Task: Study for the upcoming exams">
+                <div class="button-container">
+                    <button type="submit" class="add-task-button">
+                        <p>Add task</p>
+                        <span class="button-icon">+</span>
+                    </button>
+                    <button type="button" class="clear-all-tasks-button">  
+                        <p>Clear all tasks</p>
+                        <span class="button-icon">×</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="todos-container">
+            <img class="empty-image" src="https://i.ibb.co/YFHw5K8V/Todo-empty-image.png" alt="empty">
+            <ul class="task-list"></ul>
+        </div>
+    </div>
+
+    <footer style="width: 100%;">
+        <section class="social">
+            <div class="social-icon">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </section>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
