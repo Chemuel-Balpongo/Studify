@@ -70,9 +70,10 @@ function initHomepage() {
             } else {
                 if(emptyMsg) emptyMsg.style.display = 'none';
                 
+                // Sort for dashboard view as well (optional consistency)
                 const tasksToShow = tasks.slice(0, 3); 
                 
-                tasksToShow.forEach((task, index) => {
+                tasksToShow.forEach((task) => {
                     const row = document.createElement('div');
                     row.className = 'task-row'; 
                     row.style.marginBottom = '5px';
@@ -213,6 +214,7 @@ function initPomodoro() {
     }
 }
 
+// INTEGRATED NEW FUNCTION
 function initTodoPage() {
     const taskInput = document.querySelector('.task-input');
     const addTaskBtn = document.querySelector('.add-task-button');
@@ -223,8 +225,8 @@ function initTodoPage() {
     const clearBtn = document.querySelector('.clear-all-tasks-button');
 
     function renderTodos() {
-        if (!taskListUl) return;
         const tasks = getTasks();
+        if (!taskListUl) return;
         taskListUl.innerHTML = '';
 
         const total = tasks.length;
@@ -234,46 +236,67 @@ function initTodoPage() {
         if (progressNum) progressNum.textContent = `${completed}/${total}`;
         if (emptyImg) emptyImg.style.display = total === 0 ? 'block' : 'none';
 
-        tasks.forEach((task, index) => {
+        // Sort: Incomplete tasks first, Completed tasks last
+        const sortedTasks = [...tasks].sort((a, b) => a.completed - b.completed);
+
+        sortedTasks.forEach((task) => {
             const li = document.createElement('li');
             if (task.completed) li.classList.add('completed');
+
             li.innerHTML = `
                 <span class="task-checkbox ${task.completed ? 'checked' : ''}"></span>
                 <span class="task-text">${task.text}</span>
                 <button class="delete-button">×</button>
             `;
-            
+
+            // Toggle Complete
             li.querySelector('.task-checkbox').addEventListener('click', () => {
-                tasks[index].completed = !tasks[index].completed;
+                // We modify the object reference directly, which updates the 'tasks' array
+                task.completed = !task.completed;
                 saveTasks(tasks);
                 renderTodos();
             });
 
+            // Delete Task
             li.querySelector('.delete-button').addEventListener('click', () => {
-                tasks.splice(index, 1);
-                saveTasks(tasks);
-                renderTodos();
+                // Find the index in the original array, not the sorted one
+                const taskIndex = tasks.findIndex(t => t === task);
+                if (taskIndex > -1) {
+                    tasks.splice(taskIndex, 1);
+                    saveTasks(tasks);
+                    renderTodos();
+                }
             });
+
             taskListUl.appendChild(li);
         });
     }
 
-    if (addTaskBtn) {
-        addTaskBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (taskInput.value.trim()) {
-                const tasks = getTasks();
-                tasks.push({ text: taskInput.value.trim(), completed: false });
-                saveTasks(tasks);
-                taskInput.value = '';
-                renderTodos();
-            }
+    function addTask(e) {
+        if (e) e.preventDefault();
+        const text = taskInput.value.trim();
+        if (!text) return;
+
+        const tasks = getTasks();
+        tasks.push({ text: text, completed: false });
+        saveTasks(tasks);
+
+        taskInput.value = '';
+        renderTodos();
+    }
+
+    if (addTaskBtn) addTaskBtn.addEventListener('click', addTask);
+    
+    // Add 'Enter' key support
+    if (taskInput) {
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask(e);
         });
     }
     
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
-            if(confirm('Clear all tasks?')) {
+            if (confirm('Clear all tasks?')) {
                 saveTasks([]);
                 renderTodos();
             }
