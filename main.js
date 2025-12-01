@@ -58,9 +58,9 @@ function initHomepage() {
         const completed = tasks.filter(t => t.completed).length;
         const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
 
-        if(countDisplay) countDisplay.textContent = `${completed}/${total}`;
-        if(barFill) barFill.style.width = `${percentage}%`;
-        if(percentText) percentText.textContent = `${percentage}%`;
+        if(countDisplay) countDisplay.textContent = ${completed}/${total};
+        if(barFill) barFill.style.width = ${percentage}%;
+        if(percentText) percentText.textContent = ${percentage}%;
 
         if(miniList) {
             miniList.innerHTML = ''; 
@@ -104,7 +104,7 @@ function initHomepage() {
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         
         days.forEach(day => {
-            const container = document.querySelector(`.day-col[data-day="${day}"]`);
+            const container = document.querySelector(.day-col[data-day="${day}"]);
             if(!container) return; 
 
             container.innerHTML = ''; 
@@ -114,7 +114,7 @@ function initHomepage() {
 
             classes.forEach(cls => {
                 const card = document.createElement('div');
-                card.className = `class-card ${cls.modality === 'Online' ? 'online' : 'in-person'}`;
+                card.className = class-card ${cls.modality === 'Online' ? 'online' : 'in-person'};
                 
                 card.innerHTML = `
                     <h3>${cls.course}</h3>
@@ -147,16 +147,16 @@ function initPomodoro() {
     function updateView(seconds) {
         const m = Math.floor(seconds / 60).toString().padStart(2, '0');
         const s = (seconds % 60).toString().padStart(2, '0');
-        display.textContent = `${m}:${s}`;
+        display.textContent = ${m}:${s};
 
         if(circle) {
             const percent = seconds / WORK_TIME;
             const deg = percent * 360;
             
             if (circle.classList.contains('circular-timer')) {
-                 circle.style.background = `conic-gradient(#7ed957 ${deg}deg, #c1ff72 0deg)`;
+                 circle.style.background = conic-gradient(#7ed957 ${deg}deg, #c1ff72 0deg);
             } else {
-                 circle.style.background = `conic-gradient(#7ed957 ${deg}deg, transparent 0deg)`;
+                 circle.style.background = conic-gradient(#7ed957 ${deg}deg, transparent 0deg);
             }
         }
     }
@@ -224,22 +224,28 @@ function initTodoPage() {
     const emptyImg = document.querySelector('.empty-image');
     const clearBtn = document.querySelector('.clear-all-tasks-button');
 
+    function sortTasks(tasks) {
+        return tasks.sort((a, b) => a.completed - b.completed);
+    }
+
     function renderTodos() {
-        const tasks = getTasks();
+        let tasks = getTasks();
         if (!taskListUl) return;
+
+        // Sort BEFORE displaying
+        tasks = sortTasks(tasks);
+        saveTasks(tasks);
+
         taskListUl.innerHTML = '';
 
         const total = tasks.length;
         const completed = tasks.filter(t => t.completed).length;
 
-        if (progressBar) progressBar.style.width = total ? `${(completed / total) * 100}%` : '0%';
-        if (progressNum) progressNum.textContent = `${completed}/${total}`;
+        if (progressBar) progressBar.style.width = total ? ${(completed / total) * 100}% : '0%';
+        if (progressNum) progressNum.textContent = ${completed}/${total};
         if (emptyImg) emptyImg.style.display = total === 0 ? 'block' : 'none';
 
-        // Sort: Incomplete tasks first, Completed tasks last
-        const sortedTasks = [...tasks].sort((a, b) => a.completed - b.completed);
-
-        sortedTasks.forEach((task) => {
+        tasks.forEach((task, index) => {
             const li = document.createElement('li');
             if (task.completed) li.classList.add('completed');
 
@@ -249,23 +255,24 @@ function initTodoPage() {
                 <button class="delete-button">×</button>
             `;
 
-            // Toggle Complete
             li.querySelector('.task-checkbox').addEventListener('click', () => {
-                // We modify the object reference directly, which updates the 'tasks' array
                 task.completed = !task.completed;
-                saveTasks(tasks);
+                let updated = getTasks();
+                updated[index].completed = task.completed;
+
+                // Re-sort after toggle
+                updated = sortTasks(updated);
+                saveTasks(updated);
+
                 renderTodos();
             });
 
-            // Delete Task
             li.querySelector('.delete-button').addEventListener('click', () => {
-                // Find the index in the original array, not the sorted one
-                const taskIndex = tasks.findIndex(t => t === task);
-                if (taskIndex > -1) {
-                    tasks.splice(taskIndex, 1);
-                    saveTasks(tasks);
-                    renderTodos();
-                }
+                let updated = getTasks();
+                updated.splice(index, 1);
+                
+                saveTasks(updated);
+                renderTodos();
             });
 
             taskListUl.appendChild(li);
@@ -278,22 +285,22 @@ function initTodoPage() {
         if (!text) return;
 
         const tasks = getTasks();
-        tasks.push({ text: text, completed: false });
-        saveTasks(tasks);
+        tasks.push({ text, completed: false });
+
+        // Sort after adding
+        saveTasks(sortTasks(tasks));
 
         taskInput.value = '';
         renderTodos();
     }
 
     if (addTaskBtn) addTaskBtn.addEventListener('click', addTask);
-    
-    // Add 'Enter' key support
     if (taskInput) {
         taskInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') addTask(e);
         });
     }
-    
+
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
             if (confirm('Clear all tasks?')) {
@@ -306,13 +313,14 @@ function initTodoPage() {
     renderTodos();
 }
 
+
 function initSchedule() {
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const addBtn = document.getElementById('add');
     const clearBtn = document.getElementById('clear');
 
     function renderDay(day) {
-        const ul = document.querySelector(`[data-day="${day}"] ul`);
+        const ul = document.querySelector([data-day="${day}"] ul);
         if(!ul) return;
         ul.innerHTML = '';
         const classes = JSON.parse(localStorage.getItem(day) || '[]');
